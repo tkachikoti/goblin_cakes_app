@@ -1,5 +1,5 @@
-from db.models import db
-from db.models import GoblinCakeSales
+from .models import db
+from .models import GoblinCakeSales
 
 def create_data_after_db_init():
     db.session.add(GoblinCakeSales(product='Hobgoblin', product_type='Cake', price_per=4, units_sold=388, quarter=1))

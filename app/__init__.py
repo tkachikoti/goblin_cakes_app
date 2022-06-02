@@ -5,9 +5,8 @@ from flask import Flask
 from flask import redirect
 from flask import url_for
 
-from db.models import db
-from db.models import GoblinCakeSales
-from db.migration_init import create_data_after_db_init
+from .models import db
+from .migration_init import create_data_after_db_init
 
 
 def create_app(test_config=None):
@@ -21,7 +20,7 @@ def create_app(test_config=None):
     db.init_app(app)
     db.create_all()
 
-    if db.session.query(GoblinCakeSales).first() is None:
+    if db.session.query(models.GoblinCakeSales).first() is None:
         create_data_after_db_init()
 
     if test_config is None:
@@ -38,7 +37,7 @@ def create_app(test_config=None):
         pass
     
     # apply the blueprints to the app
-    from routes import sales
+    from .routes import sales
 
     app.register_blueprint(sales.bp)
 
