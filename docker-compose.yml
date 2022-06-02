@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  app:
+    container_name: flask_app
+    build: .
+    volumes:
+      - .:/code
+    links:
+      - db
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=app
+      - FLASK_RUN_HOST=0.0.0.0
+      - DATABASE_URL=postgresql+psycopg2://postgres:secret@db:5432/postgres
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    container_name: db
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
