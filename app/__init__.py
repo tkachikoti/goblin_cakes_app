@@ -36,10 +36,14 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+    
+    # apply the blueprints to the app
+    from routes import sales
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
+    app.register_blueprint(sales.bp)
 
+    @app.route('/')
+    def index():
+        return redirect(url_for('sales.index'))
+    
     return app
