@@ -5,9 +5,9 @@ from flask import Flask
 from flask import redirect
 from flask import url_for
 
-from .models import db
-from .models import GoblinCakeSales
-from .migration_init import create_data_after_db_init
+from db.models import db
+from db.models import GoblinCakeSales
+from db.migration_init import create_data_after_db_init
 
 
 def create_app(test_config=None):
