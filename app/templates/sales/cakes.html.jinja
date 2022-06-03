@@ -7,7 +7,8 @@
 {% endblock %}
 {% block maincontent %}
 <div class="row justify-content-center">
-    <div class="col-auto">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
         {% if sales_table_data %}
         <h2 class="text-center my-5">Goblin Cakes – Sales by Quarter</h2>
         <p>
@@ -28,13 +29,15 @@
         </div>
         <div class="collapse" id="collapseSortOptions">
             <div class="card card-body">
-                <form action="/sales" method="get">
+                <form action="/sales/cakes" method="get">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="sortByInput1" class="form-label">Sort Table By</label>
                             <select name="table_attribute" class="form-select" aria-label="Sort Entry Status Table By" id="sortByInput1" value="{{ sort_table_by.table_attribute }}">
                                 {% for element in table_attribute_list %}
+                                {% if element.db_label != 'id' and element.db_label != 'total_sale_value' %}
                                 <option {% if element.db_label==sort_table_by.table_attribute %}selected{% endif %} value="{{ element.db_label }}" label="{{ element.full_label }}"></option>
+                                {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
@@ -76,10 +79,10 @@
                 <tr>
                     {% for element in table_attribute_list %}
                     {% if element.db_label != 'id' %}
-                    <th scope="col">{{ element.full_label }}</th>
+                    <th scope="col" class="text-center">{{ element.full_label }}</th>
                     {% endif %}
                     {% endfor %}
-                    <th scope="col">Actions</th>
+                    <th scope="col" class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -87,10 +90,10 @@
                 <tr>
                 {% for key, value in element_row.items() %}
                     {% if key != 'id' %}
-                    <td class="wrap-table-text {% if value|int != 0 %}text-center{% endif %}">{{ value }}</td>
+                    <td class="wrap-table-text text-center">{{ value }}</td>
                     {% endif %}
                 {% endfor %}
-                    <td>
+                    <td class="text-center">
                         <form id="delete_entry_form" method="post" action="/delete">
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Show Actions</button>
@@ -115,6 +118,7 @@
         </div>
         {% endif %}
     </div>
+    <div class="col-md-3"></div>
 </div>
 {% endblock %}
 {% block scripts %}

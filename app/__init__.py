@@ -43,6 +43,6 @@ def create_app(test_config=None):
 
     @app.route('/')
     def index():
-        return redirect(url_for('sales.index'))
+        return redirect(url_for('sales.cakes'))
     
     return app
