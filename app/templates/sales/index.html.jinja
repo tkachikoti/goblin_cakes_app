@@ -6,7 +6,6 @@
 }
 {% endblock %}
 {% block maincontent %}
-{{sort_table_by}}
 <div class="row justify-content-center">
     <div class="col-auto">
         {% if sales_table_data %}
@@ -32,7 +31,7 @@
                 <form action="/sales" method="get">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label for="sortByInput1" class="form-label">Sort Entry Table By</label>
+                            <label for="sortByInput1" class="form-label">Sort Table By</label>
                             <select name="table_attribute" class="form-select" aria-label="Sort Entry Status Table By" id="sortByInput1" value="{{ sort_table_by.table_attribute }}">
                                 {% for element in table_attribute_list %}
                                 <option {% if element.db_label==sort_table_by.table_attribute %}selected{% endif %} value="{{ element.db_label }}" label="{{ element.full_label }}"></option>
@@ -47,6 +46,25 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row my-3">
+                        <fieldset>
+                            <legend>Select a calender period:</legend>
+                            <div class="btn-group" role="group" aria-label="Radio toggle button group">
+
+                                <input type="radio" class="btn-check" name="quarter" id="btnradioquarter1" value="1" autocomplete="off" {% if sort_table_by.quarter=='1' %}checked{% endif %}>
+                                <label class="btn btn-outline-secondary" for="btnradioquarter1">1st Quarter</label>
+
+                                <input type="radio" class="btn-check" name="quarter" id="btnradioquarter2" value="2" autocomplete="off" {% if sort_table_by.quarter=='2' %}checked{% endif %}>
+                                <label class="btn btn-outline-secondary" for="btnradioquarter2">2nd Quarter</label>
+
+                                <input type="radio" class="btn-check" name="quarter" id="btnradioquarter3" value="3" autocomplete="off" {% if sort_table_by.quarter=='3' %}checked{% endif %}>
+                                <label class="btn btn-outline-secondary" for="btnradioquarter3">3rd Quarter</label>
+
+                                <input type="radio" class="btn-check" name="quarter" id="btnradioquarter4" value="4" autocomplete="off" {% if sort_table_by.quarter=='4' %}checked{% endif %}>
+                                <label class="btn btn-outline-secondary" for="btnradioquarter4">4th Quarter</label>
+                            </div>
+                        </fieldset>
+                    </div>
                     <div class="d-grid gap-2 col-6 mx-auto my-5">
                         <button type="submit" class="btn btn-primary btn-lg">SORT TABLE</button>
                     </div>
@@ -57,7 +75,9 @@
             <thead>
                 <tr>
                     {% for element in table_attribute_list %}
+                    {% if element.db_label != 'id' %}
                     <th scope="col">{{ element.full_label }}</th>
+                    {% endif %}
                     {% endfor %}
                     <th scope="col">Actions</th>
                 </tr>
@@ -66,9 +86,7 @@
                 {% for element_row in sales_table_data %}
                 <tr>
                 {% for key, value in element_row.items() %}
-                    {% if key == 'id' %}
-                    <th scope="row">{{ value }}</th>
-                    {% else %}
+                    {% if key != 'id' %}
                     <td class="wrap-table-text {% if value|int != 0 %}text-center{% endif %}">{{ value }}</td>
                     {% endif %}
                 {% endfor %}
