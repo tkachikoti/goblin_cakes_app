@@ -4,6 +4,8 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
+from sqlalchemy import desc
+from sqlalchemy import asc
 from ..models import db
 from ..models import GoblinCakeSales
 
@@ -13,10 +15,21 @@ bp = Blueprint('sales', __name__, url_prefix='/sales')
 def index():
     """Render the index page of the sales section of the application.
     """
-    sort_table_by = {'table_attribute': 'id', 'order_by_descending': 0}
+    goblin_cake_sales = []
+    sort_table_by = {
+        'table_attribute': request.args.get('table_attribute', 'id'),
+        'order_by_descending': request.args.get('order_by_descending', '0')}
     sales_table_data = []
     table_attribute_list = []
-    for element in db.session.query(GoblinCakeSales).all():
+
+    if bool(int(sort_table_by['order_by_descending'])):
+        goblin_cake_sales = db.session.query(GoblinCakeSales).order_by(
+            desc(sort_table_by['table_attribute'])).all()
+    else:
+        goblin_cake_sales = db.session.query(GoblinCakeSales).order_by(
+            asc(sort_table_by['table_attribute'])).all()
+
+    for element in goblin_cake_sales:
         sales_table_data.append({
             'id': element.id,
             'product': element.product,
