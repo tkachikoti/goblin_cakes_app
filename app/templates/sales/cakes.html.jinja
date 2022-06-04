@@ -82,7 +82,6 @@
                     <th scope="col" class="text-center">{{ element.full_label }}</th>
                     {% endif %}
                     {% endfor %}
-                    <th scope="col" class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,20 +92,6 @@
                     <td class="wrap-table-text text-center">{{ value }}</td>
                     {% endif %}
                 {% endfor %}
-                    <td class="text-center">
-                        <form id="delete_entry_form" method="post" action="/delete">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Show Actions</button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="/view?id={{ element_row.id }}">View Entry</a></li>
-                                    <li><a class="dropdown-item" href="/update?id={{ element_row.id }}">Update Entry</a></li>
-                                    <li><a class="dropdown-item" href="#" onclick="confirm_deletion()">Delete Entry</a></li>
-                                </ul>
-                            </div>
-                            <label for="uidInput1" class="form-label visually-hidden">UID</label>
-                            <input name="id" type="hidden" class="form-control visually-hidden" id="uidInput1" value="{{ element_row.id }}">
-                        </form>
-                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
