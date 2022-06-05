@@ -2,5 +2,5 @@
     <a class="nav-link {% if page_title=='Home' %}active{% endif %}" aria-current="page" href="{% if page_title=='Home' %}#{% else %}/{% endif %}">Home</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link {% if page_title=='Sales' %}active{% endif %}" aria-current="page" href="{% if page_title=='Sales' %}#{% else %}/{% endif %}">Sales</a>
+    <a class="nav-link {% if page_title=='Sales' %}active{% endif %}" aria-current="page" href="{% if page_title=='Sales' %}#{% else %}{{ url_for('sales.cakes') }}{% endif %}">Sales</a>
 </li>

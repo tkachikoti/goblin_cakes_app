@@ -9,20 +9,19 @@
 <div class="row justify-content-center">
     <div class="col-md-3"></div>
     <div class="col-md-6">
+        <h2 class="text-center my-5">Goblin Cakes – Sales by {% if sort_table_by.quarter == '1' %}1st{% elif sort_table_by.quarter == '2' %}2nd{% elif sort_table_by.quarter == '3' %}3rd{% elif sort_table_by.quarter == '4' %}4th{% else %}{% endif %} Quarter</h2>
         {% if sales_table_data %}
-        <h2 class="text-center my-5">Goblin Cakes – Sales by Quarter</h2>
         <p>
-            <button type="button" class="btn btn-primary" onclick="create_entry_button()">Create Entry</button>
-            <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSortOptions" aria-expanded="false" aria-controls="collapseSortOptions">Sorting Options</button>
+            <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSortOptions" aria-expanded="false" aria-controls="collapseSortOptions" id="showFilterOptionsButton">Show Filter Options</button>
         </p>
         <div class="collapse" id="collapseSortOptions">
             <div class="card card-body">
-                <form action="/sales/cakes" method="get">
+                <form action="{{ url_for('sales.cakes') }}" method="get">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="sortByInput1" class="form-label">Sort Table By</label>
                             <select name="table_attribute" class="form-select" aria-label="Sort Entry Status Table By" id="sortByInput1" value="{{ sort_table_by.table_attribute }}">
-                                {% for element in table_attribute_list %}
+                                {% for element in list_of_table_attributes %}
                                 {% if element.db_label != 'id' and element.db_label != 'total_sale_value' %}
                                 <option {% if element.db_label==sort_table_by.table_attribute %}selected{% endif %} value="{{ element.db_label }}" label="{{ element.full_label }}"></option>
                                 {% endif %}
@@ -56,8 +55,29 @@
                             </div>
                         </fieldset>
                     </div>
+                    <div class="row my-3">
+                        <fieldset>
+                            <legend>Select product types:</legend>
+                            <div class="form-check">
+                                <input name="product_type" class="form-check-input" type="checkbox" value="Cake" id="flexCheckBoxDefault2" checked disabled>
+                                <label class="form-check-label" for="flexCheckBoxDefault2">Cake</label>
+                            </div>
+                            {% for element_1 in list_of_product_types %}
+                            {% if element_1 != 'Cake' %}
+                            <div class="form-check">
+                                <input name="product_type" class="form-check-input" type="checkbox" value="{{ element_1 }}" id="flexCheckBox{{ loop.index }}" {% for element_2 in sort_table_by.product_type %}{% if element_2 == element_1 %}checked{% endif %}{% endfor %}>
+                                <label class="form-check-label" for="flexCheckBox2">{{ element_1 }}</label>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            <div class="form-check">
+                                <input name="product_type" class="form-check-input visually-hidden" type="hidden" value="Cake" id="flexCheckBoxDefault1" checked>
+                                <label class="form-check-label visually-hidden" for="flexCheckBoxDefault1">Cake</label>
+                            </div>
+                        </fieldset>
+                    </div>
                     <div class="d-grid gap-2 col-6 mx-auto my-5">
-                        <button type="submit" class="btn btn-primary btn-lg">SORT TABLE</button>
+                        <button type="submit" class="btn btn-primary btn-lg">FILTER TABLE</button>
                     </div>
                 </form>
             </div>
@@ -65,7 +85,7 @@
         <table class="table table-responsive table-hover shadow p-3 mb-5 bg-body rounded">
             <thead>
                 <tr>
-                    {% for element in table_attribute_list %}
+                    {% for element in list_of_table_attributes %}
                     {% if element.db_label != 'id' %}
                     <th scope="col" class="text-center">{{ element.full_label }}</th>
                     {% endif %}
@@ -86,8 +106,7 @@
         </table>
         {% else %}
         <div class="shadow p-3 mb-5 bg-body rounded justify-content-center text-center my-5">
-            <h2 class="mb 3">No Entries found</h2>
-            <button type="button" class="btn btn-primary btn-lg" onclick="create_ticket_button()">CREATE ENTRY</button>
+            <h3 class="mb 3">No Entries found</h3>
         </div>
         {% endif %}
     </div>
@@ -104,4 +123,13 @@
     function create_entry_button() {
         window.location.href = "/create";
     }
+    const showFilterOptionsButton = (
+        document.getElementById('showFilterOptionsButton')
+    );
+    showFilterOptionsButton.addEventListener("click", function(element) {
+        showFilterOptionsButton.innerHTML = 
+            (showFilterOptionsButton.getAttribute("aria-expanded")) === 'true' ?
+                'Hide Filter Options' :
+                'Show Filter Options';
+    });
 {% endblock %}

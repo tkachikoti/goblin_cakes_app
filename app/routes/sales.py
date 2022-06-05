@@ -1,8 +1,6 @@
-import functools
-
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
+from flask import Blueprint
+from flask import render_template
+from flask import request
 
 from sqlalchemy import desc
 from sqlalchemy import asc
@@ -20,31 +18,40 @@ def cakes():
     sort_table_by = {
         'table_attribute': request.args.get('table_attribute', 'id'),
         'order_by_descending': request.args.get('order_by_descending', '0'),
-        'quarter': request.args.get('quarter', '1')}
+        'quarter': request.args.get('quarter', '1'),
+        'product_type': request.args.getlist('product_type') or ['Cake']}
     sales_table_data = []
-    table_attribute_list = []
+    list_of_table_attributes = []
+    list_of_product_types = (
+        [product_type[0] for product_type in db.session.query(
+            GoblinCakeSales.product_type).distinct()])
 
     if bool(int(sort_table_by['order_by_descending'])):
         goblin_cake_sales = db.session.query(GoblinCakeSales).filter(
-            GoblinCakeSales.quarter==sort_table_by['quarter'], GoblinCakeSales.product_type=="Cake").order_by(
-                desc(sort_table_by['table_attribute'])).all()
+            GoblinCakeSales.quarter==sort_table_by['quarter'],
+                GoblinCakeSales.product_type.in_(
+                    sort_table_by['product_type'])).order_by(
+                        desc(sort_table_by['table_attribute'])).all()
     else:
         goblin_cake_sales = db.session.query(GoblinCakeSales).filter(
-            GoblinCakeSales.quarter==sort_table_by['quarter'], GoblinCakeSales.product_type=="Cake").order_by(
-                asc(sort_table_by['table_attribute'])).all()
+            GoblinCakeSales.quarter==sort_table_by['quarter'],
+                GoblinCakeSales.product_type.in_(
+                    sort_table_by['product_type'])).order_by(
+                        asc(sort_table_by['table_attribute'])).all()
     
     for element in goblin_cake_sales:
         sales_table_data.append({
             'id': element.id,
             'product': element.product,
-            'price_per': '£ ' + str(float(element.price_per)),
+            'price_per': '£ ' + '%.2f' % element.price_per,
             'units_sold': element.units_sold,
-            'total_sale_value': '£ ' + str(float(element.price_per * element.units_sold))
+            'total_sale_value': '£ '
+                + '%.2f' % (element.price_per * element.units_sold)
         })
 
     if sales_table_data:
         for key in sales_table_data[0].keys():
-            table_attribute_list.append({
+            list_of_table_attributes.append({
                 'db_label': key,
                 'full_label': key.replace('_', ' ').title()
             })
@@ -53,5 +60,6 @@ def cakes():
         'sales/cakes.html.jinja',
         page_title='Sales',
         sales_table_data=sales_table_data,
-        table_attribute_list=table_attribute_list,
+        list_of_table_attributes=list_of_table_attributes,
+        list_of_product_types=list_of_product_types,
         sort_table_by=sort_table_by)
