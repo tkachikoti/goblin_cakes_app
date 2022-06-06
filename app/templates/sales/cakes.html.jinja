@@ -123,7 +123,9 @@
 {% endblock %}
 {% block scripts %}
     
-    const ctx = document.getElementById('doughnut_chart').getContext('2d');
+    const doughnut_chart_canvas_element = (
+        document.getElementById('doughnut_chart').getContext('2d')
+    );
 
     const generate_doughnut_chart_data = function() {
         const sales_table_data = {{ sales_table_data }};
@@ -136,12 +138,16 @@
                 hoverOffset: 5
             }]
         };
+        // Generate random colors for the doughnut chart
         const generate_rgb_colour = function() {
             var r = Math.floor(Math.random() * 255);
             var g = Math.floor(Math.random() * 255);
             var b = Math.floor(Math.random() * 255);
             return "rgb(" + r + "," + g + "," + b + ")";
         };
+
+        // Populate the doughnut chart data with the data from the sales table
+        // and generate random colours for the doughnut chart.
         for (var i = 0; i < sales_table_data.length; i++) {
             doughnut_chart_data.labels.push(sales_table_data[i].product);
             doughnut_chart_data.datasets[0].data.push(
@@ -154,7 +160,7 @@
         return doughnut_chart_data;
     };
 
-    const doughnut_chart_config = new Chart(ctx, {
+    const doughnut_chart_config = new Chart(doughnut_chart_canvas_element, {
         type: 'doughnut',
         data: generate_doughnut_chart_data(),
         options: {
@@ -166,6 +172,8 @@
         document.getElementById('showFilterOptionsButton')
     );
 
+    // Change the text of the button when the filter options are shown
+    // and vice versa.
     showFilterOptionsButton.addEventListener('click', function(element) {
         showFilterOptionsButton.innerHTML = 
             (showFilterOptionsButton.getAttribute('aria-expanded')) === 'true' ?

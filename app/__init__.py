@@ -12,6 +12,12 @@ from .migration_init import create_data_after_db_init
 
 
 def create_app(test_config=None):
+    """Create and configure the flask application. The function creates
+    the flask application and registers the sales route blueprint. The
+    function also creates the database tables if the database is not
+    already initialised. The function also adds data to the database
+    if the database does not contain data.
+    """
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
 
