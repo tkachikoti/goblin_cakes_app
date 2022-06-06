@@ -1,7 +1,9 @@
+"""This module initialises the flask application, registers the sales 
+route blueprint, and provides a function to create the database tables.
+"""
 import os
 
 from flask import Flask
-
 from flask import redirect
 from flask import url_for
 
@@ -20,6 +22,7 @@ def create_app(test_config=None):
     db.init_app(app)
     db.create_all()
 
+    # Check if the database contains data. If not, add the data.
     if db.session.query(models.GoblinCakeSales).first() is None:
         create_data_after_db_init()
 
@@ -41,6 +44,8 @@ def create_app(test_config=None):
 
     app.register_blueprint(sales.bp)
 
+    # For the sake of the example, we'll redirect all requests to the
+    # index page to the sales route.
     @app.route('/')
     def index():
         return redirect(url_for('sales.cakes'))
