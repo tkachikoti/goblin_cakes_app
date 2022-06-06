@@ -55,5 +55,5 @@ $ docker exec -i flask_app pytest
 1. From the root directory execute the following command:
 
 ```
-$ cd docker-compose down --rmi all
+$ docker-compose down --rmi all
 ```
