@@ -17,25 +17,6 @@
         <div class="collapse" id="collapseSortOptions">
             <div class="card card-body">
                 <form action="{{ url_for('sales.cakes') }}" method="get">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label for="sortByInput1" class="form-label">Sort Table By</label>
-                            <select name="table_attribute" class="form-select" aria-label="Sort Entry Status Table By" id="sortByInput1" value="{{ sort_table_by.table_attribute }}">
-                                {% for element in list_of_table_attributes %}
-                                {% if element.db_label != 'id' and element.db_label != 'total_sale_value' %}
-                                <option {% if element.db_label==sort_table_by.table_attribute %}selected{% endif %} value="{{ element.db_label }}" label="{{ element.full_label }}"></option>
-                                {% endif %}
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="orderByDescendingInput1" class="form-label">Display Order</label>
-                            <select name="order_by_descending" class="form-select" aria-label="Display Order" id="orderByDescendingInput1" value="{{ sort_table_by.order_by_descending }}">
-                                <option {% if sort_table_by.order_by_descending=='0' %}selected{% endif %} value="0" label="Ascending"></option>
-                                <option {% if sort_table_by.order_by_descending=='1' %}selected{% endif %} value="1" label="Descending"></option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="row my-3">
                         <fieldset>
                             <legend>Select a calender period:</legend>
@@ -75,6 +56,25 @@
                                 <label class="form-check-label visually-hidden" for="flexCheckBoxDefault1">Cake</label>
                             </div>
                         </fieldset>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="sortByInput1" class="form-label">Sort Table By</label>
+                            <select name="table_attribute" class="form-select" aria-label="Sort Entry Status Table By" id="sortByInput1" value="{{ sort_table_by.table_attribute }}">
+                                {% for element in list_of_table_attributes %}
+                                {% if element.db_label != 'id' and element.db_label != 'total_sale_value' %}
+                                <option {% if element.db_label==sort_table_by.table_attribute %}selected{% endif %} value="{{ element.db_label }}" label="{{ element.full_label }}"></option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="orderByDescendingInput1" class="form-label">Display Order</label>
+                            <select name="order_by_descending" class="form-select" aria-label="Display Order" id="orderByDescendingInput1" value="{{ sort_table_by.order_by_descending }}">
+                                <option {% if sort_table_by.order_by_descending=='0' %}selected{% endif %} value="0" label="Ascending"></option>
+                                <option {% if sort_table_by.order_by_descending=='1' %}selected{% endif %} value="1" label="Descending"></option>
+                            </select>
+                        </div>
                     </div>
                     <div class="d-grid gap-2 col-6 mx-auto my-5">
                         <button type="submit" class="btn btn-primary btn-lg">FILTER TABLE</button>
