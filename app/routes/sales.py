@@ -25,7 +25,10 @@ bp = Blueprint('sales', __name__, url_prefix='/sales')
 def cakes():
     """Renders the index page of the cake sales section of
     the application. The route is accessed by typing the URL
-    /sales/cakes. The route is accessed by GET requests.
+    /sales/cakes. The route is accessed by GET requests. In the interest
+    of keeping the application simple, the route contains all of the
+    logic required to retrieve, organise and display the data from the
+    database.
     """
     goblin_cake_sales = []
     sort_table_by = {
