@@ -185,8 +185,8 @@
         document.getElementById('filterOptionsButton')
     );
 
-    // Change the text of the button when the filter options are shown
-    // and vice versa.
+    // Change the text on the 'Filter Options' button label when the 
+    // filter options collapseable is open or closed.
     filterOptionsButton.addEventListener('click', function(element) {
         filterOptionsButton.innerHTML = 
             (filterOptionsButton.getAttribute('aria-expanded')) === 'true' ?
