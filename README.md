@@ -16,11 +16,11 @@ This repository contains a small application that visualises sales related data 
 This repository contains a [Flask](https://github.com/pallets/flask) based minimal Python web project.
 - The front end interface was built using [Bootstrap](https://github.com/twbs/bootstrap) for HTML/CSS components, [Jinja](https://github.com/pallets/jinja) for the template engine and [Chart.js](https://github.com/chartjs/Chart.js) data visualisation.
 - The database was implemented using [PostgreSQL](https://github.com/postgres) with [Flask-SQLAlchemy](https://github.com/pallets-eco/flask-sqlalchemy) for Object-relational mapping and [Psycopg](https://github.com/psycopg/psycopg2) for the database adapter.
-- The testing functionality was implemented using [pytest](https://github.com/pytest-dev/pytest)
+- The testing functionality was implemented using [pytest](https://github.com/pytest-dev/pytest).
 
 ## Installing and running the app
 
-1. Download and install Docker: https://www.docker.com/products/docker-desktop/
+1. Download, install and run Docker Desktop: https://www.docker.com/products/docker-desktop/
 
 2. Clone the repository:
 
