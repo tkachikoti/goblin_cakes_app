@@ -12,9 +12,9 @@
         <h2 class="text-center my-5">Goblin Cakes – Sales by {% if sort_table_by.quarter == '1' %}1st{% elif sort_table_by.quarter == '2' %}2nd{% elif sort_table_by.quarter == '3' %}3rd{% elif sort_table_by.quarter == '4' %}4th{% else %}{% endif %} Quarter</h2>
         {% if sales_table_data %}
         <p>
-            <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSortOptions" aria-expanded="false" aria-controls="collapseSortOptions" id="filterOptionsButton">Show Filter Options</button>
+            <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilterOptions" aria-expanded="false" aria-controls="collapseFilterOptions" id="filterOptionsButton">Show Filter Options</button>
         </p>
-        <div class="collapse" id="collapseSortOptions">
+        <div class="collapse" id="collapseFilterOptions">
             <div class="card card-body">
                 <form action="{{ url_for('sales.cakes') }}" method="get">
                     <div class="row my-3">
