@@ -7,6 +7,7 @@ This repository contains a small application that visualises sales related data 
 
 - [Description](#description)
 - [Installing and running the app](#installing-and-running-the-app)
+- [Uninstalling and Shutting down the app](#uninstalling-and-shutting-down-the-app)
 - [Testing the app](#testing-the-app)
 - [References](#references)
 
@@ -18,8 +19,6 @@ This repository contains a [Flask](https://github.com/pallets/flask) based minim
 - The testing functionality was implemented using [pytest](https://github.com/pytest-dev/pytest)
 
 ## Installing and running the app
-
-### Windows and macOS
 
 1. Download and install Docker: https://www.docker.com/products/docker-desktop/
 
@@ -45,8 +44,16 @@ $ docker-compose up -d
 
 ## Testing the app
 
-1. After following the installation process, tests are executed via Docker container CLI by entering:
+1. After following the installation process, tests are executed by entering:
 
 ```
-$ docker exec -i -t flask_app pytest
+$ docker exec -i flask_app pytest
+```
+
+## Uninstalling and shutting down the app
+
+1. From the root directory execute the following command:
+
+```
+$ cd docker-compose down --rmi all
 ```
