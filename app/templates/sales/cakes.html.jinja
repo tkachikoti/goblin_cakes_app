@@ -12,7 +12,7 @@
         <h2 class="text-center my-5">Goblin Cakes – Sales by {% if sort_table_by.quarter == '1' %}1st{% elif sort_table_by.quarter == '2' %}2nd{% elif sort_table_by.quarter == '3' %}3rd{% elif sort_table_by.quarter == '4' %}4th{% else %}{% endif %} Quarter</h2>
         {% if sales_table_data %}
         <p>
-            <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSortOptions" aria-expanded="false" aria-controls="collapseSortOptions" id="showFilterOptionsButton">Show Filter Options</button>
+            <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSortOptions" aria-expanded="false" aria-controls="collapseSortOptions" id="filterOptionsButton">Show Filter Options</button>
         </p>
         <div class="collapse" id="collapseSortOptions">
             <div class="card card-body">
@@ -168,15 +168,15 @@
         }
     });
 
-    const showFilterOptionsButton = (
-        document.getElementById('showFilterOptionsButton')
+    const filterOptionsButton = (
+        document.getElementById('filterOptionsButton')
     );
 
     // Change the text of the button when the filter options are shown
     // and vice versa.
-    showFilterOptionsButton.addEventListener('click', function(element) {
-        showFilterOptionsButton.innerHTML = 
-            (showFilterOptionsButton.getAttribute('aria-expanded')) === 'true' ?
+    filterOptionsButton.addEventListener('click', function(element) {
+        filterOptionsButton.innerHTML = 
+            (filterOptionsButton.getAttribute('aria-expanded')) === 'true' ?
                 'Hide Filter Options' :
                 'Show Filter Options';
     });
