@@ -1,6 +1,6 @@
 # Inventory Viewer
 
-![A demonstration of a user creating a ticket](https://tkachikoti-cloud-object-storage.ams3.digitaloceanspaces.com/images/github/inventory_viewer/inventory_viewer_app_preview.gif)
+![A demonstration of a the inventory app](https://tkachikoti-cloud-object-storage.ams3.digitaloceanspaces.com/images/github/inventory_viewer/inventory_viewer_app_preview.gif)
 
 This repository contains a small application that visualises sales related data from a database table. 
 ## Table of contents
@@ -9,7 +9,7 @@ This repository contains a small application that visualises sales related data 
 - [Installing and running the app](#installing-and-running-the-app)
 - [Uninstalling and Shutting down the app](#uninstalling-and-shutting-down-the-app)
 - [Testing the app](#testing-the-app)
-- [References](#references)
+- [Functionality overview](#functionality-overview)
 
 ## Description
 
@@ -57,3 +57,11 @@ $ docker exec -i flask_app pytest
 ```
 $ docker-compose down --rmi all
 ```
+
+## Functionality overview
+
+### Filter Options
+
+Users can filter the data by selecting a specific product category, or by selecting a specific calendar quarter. In addition to this users can change the order that the data is displayed by selecting the desired column.
+
+![A demonstration of the inventory app's filter options](https://tkachikoti-cloud-object-storage.ams3.digitaloceanspaces.com/images/github/inventory_viewer/inventory_viewer_app_filter_options.gif)
