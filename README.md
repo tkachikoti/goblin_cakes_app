@@ -45,8 +45,8 @@ $ docker-compose up -d
 
 ## Testing the app
 
-1. After following the relevant installation process, tests are executed from the root directory by entering:
+1. After following the installation process, tests are executed via Docker container CLI by entering:
 
 ```
-$ pytest
+$ docker exec -i -t flask_app pytest
 ```
